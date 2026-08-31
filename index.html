@@ -41,9 +41,9 @@ body{overflow:hidden;}
   display:flex;flex-direction:column;
   overflow-y:auto;
 }
-.sidebar-header{padding:28px 28px 20px;display:flex;align-items:center;gap:12px;}
-.sidebar-header .mark{width:34px;height:20px;flex:none;}
-.sidebar-header h1{font-family:'adidasFG';font-size:19px;letter-spacing:0.5px;margin:0;font-weight:400;}
+.sidebar-header{padding:28px 28px 20px;display:flex;align-items:flex-end;gap:14px;}
+.sidebar-header .mark{width:42px;height:24.8px;flex:none;display:block;}
+.sidebar-header h1{font-family:'adidasFG';font-size:23px;letter-spacing:0.5px;margin:0;font-weight:400;text-transform:uppercase;line-height:1;position:relative;top:5px;}
 .sidebar-hr{height:1px;background:#000;margin:0 28px 6px;opacity:0.85;}
 
 .section{border-bottom:1px solid #00000014;}
@@ -53,20 +53,20 @@ body{overflow:hidden;}
 }
 .section-head .left{display:flex;align-items:center;gap:14px;}
 .section-num{
-  width:24px;height:24px;background:#000;color:var(--cream);
-  font-size:12px;display:flex;align-items:center;justify-content:center;flex:none;
+  width:26px;height:26px;background:#000;color:var(--cream);
+  font-size:13px;display:flex;align-items:center;justify-content:center;flex:none;
   font-family:'adidasFG';
 }
-.section-title{font-family:'adidasFG';font-size:16px;letter-spacing:0.5px;text-transform:uppercase;}
-.section-toggle{font-size:20px;line-height:1;color:#000;transition:transform .15s ease;}
+.section-title{font-family:'adidasFG';font-size:18px;letter-spacing:0.5px;text-transform:uppercase;}
+.section-toggle{font-size:22px;line-height:1;color:#000;transition:transform .15s ease;}
 .section.open .section-toggle{transform:rotate(45deg);}
 .section-body{max-height:0;overflow:hidden;transition:max-height .2s ease;padding:0 28px;}
 .section.open .section-body{max-height:900px;padding-bottom:20px;}
 
 .field{margin-bottom:16px;}
-.field label{display:block;font-size:13px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:7px;color:#333;font-family:'adidasFG';}
+.field label{display:block;font-size:14.5px;text-transform:uppercase;letter-spacing:0.4px;margin-bottom:7px;color:#333;font-family:'adidasFG';}
 .field input[type=text],.field input[type=date],.field input[type=number],.field textarea{
-  width:100%;border:1px solid #000;background:#fff;padding:11px 13px;font-size:17px;
+  width:100%;border:1px solid #000;background:#fff;padding:11px 13px;font-size:19px;
   font-family:'adidasFG';outline:none;resize:none;text-transform:uppercase;
 }
 .field textarea{min-height:70px;line-height:1.4;overflow:hidden;}
@@ -74,32 +74,34 @@ body{overflow:hidden;}
 .row2 .field{flex:1;}
 .row3{display:flex;gap:12px;}
 .row3 .field{flex:1;}
-.counter{font-size:12px;color:#777;text-align:right;margin-top:4px;font-family:'adidasFG';}
+.counter{font-size:13px;color:#777;text-align:right;margin-top:4px;font-family:'adidasFG';}
 .counter.over{color:#c0392b;}
 
 .dropzone{
   border:1.5px dashed #999;padding:26px 14px;text-align:center;cursor:pointer;
-  font-size:14px;color:#555;font-family:'adidasFG';background:#fff;
+  font-size:15px;color:#555;font-family:'adidasFG';background:#fff;
 }
-.dropzone strong{display:block;font-size:15px;color:#000;margin-bottom:4px;font-weight:400;text-transform:uppercase;letter-spacing:.3px;}
+.dropzone strong{display:block;font-size:16.5px;color:#000;margin-bottom:4px;font-weight:400;text-transform:uppercase;letter-spacing:.3px;}
 .dropzone input{display:none;}
 .photo-actions{display:flex;gap:10px;margin-top:10px;}
-.photo-actions button{flex:1;padding:9px;font-size:13px;text-transform:uppercase;letter-spacing:.4px;background:#fff;border:1px solid #000;cursor:pointer;font-family:'adidasFG';}
+.photo-actions button{flex:1;padding:9px;font-size:14.5px;text-transform:uppercase;letter-spacing:.4px;background:#fff;border:1px solid #000;cursor:pointer;font-family:'adidasFG';}
 .photo-actions button:hover{background:#000;color:#fff;}
 .photo-zoom{display:flex;align-items:center;gap:8px;margin-top:10px;}
 .photo-zoom button.zbtn{width:34px;height:34px;flex:none;font-size:18px;line-height:1;background:#fff;border:1px solid #000;cursor:pointer;font-family:'adidasFG';}
 .photo-zoom button.zbtn:hover{background:#000;color:#fff;}
 .photo-zoom input[type=range]{flex:1;accent-color:#000;}
-.photo-zoom button.reset-btn{flex:none;width:auto;padding:0 12px;height:34px;font-size:11.5px;text-transform:uppercase;letter-spacing:.3px;background:#fff;border:1px solid #000;cursor:pointer;font-family:'adidasFG';}
+.photo-zoom button.reset-btn{flex:none;width:auto;padding:0 12px;height:34px;font-size:12.5px;text-transform:uppercase;letter-spacing:.3px;background:#fff;border:1px solid #000;cursor:pointer;font-family:'adidasFG';}
 .photo-zoom button.reset-btn:hover{background:#000;color:#fff;}
-.hint{font-size:10.5px;color:#888;margin-top:8px;line-height:1.4;}
+.hint{font-size:13px;color:#888;margin-top:8px;line-height:1.4;}
 
 .export-section{padding:18px 28px 22px;}
 .export-head{
-  display:flex;align-items:center;justify-content:space-between;
-  background:#000;color:var(--cream);padding:14px 16px;cursor:pointer;font-family:'adidasFG';
-  font-size:13px;letter-spacing:.5px;text-transform:uppercase;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  background:#000;color:var(--cream);padding:16px;cursor:pointer;font-family:'adidasFG';
+  font-size:17px;letter-spacing:.5px;text-transform:uppercase;text-align:center;
 }
+.export-head span{line-height:1;display:block;}
+.export-chevron{flex:none;display:block;}
 .export-body{max-height:0;overflow:hidden;transition:max-height .2s ease;}
 .export-section.open .export-body{max-height:400px;margin-top:8px;}
 .export-opt{
@@ -107,11 +109,11 @@ body{overflow:hidden;}
   border:1px solid #000;padding:12px 14px;margin-bottom:8px;cursor:pointer;background:#fff;
 }
 .export-opt:hover{background:#000;color:#fff;}
-.export-opt .fmt{font-family:'adidasFG';font-size:13px;letter-spacing:.4px;}
-.export-opt .meta{font-size:10.5px;color:inherit;opacity:.65;}
+.export-opt .fmt{font-family:'adidasFG';font-size:14.5px;letter-spacing:.4px;}
+.export-opt .meta{font-size:11.5px;color:inherit;opacity:.65;}
 .export-opt.busy{opacity:.5;pointer-events:none;}
 
-.credit{padding:16px 28px 22px;font-size:10px;color:#8a8a8a;font-family:'adidasFG';line-height:1.5;margin-top:auto;}
+.credit{padding:16px 28px 22px;font-size:12.5px;color:#8a8a8a;font-family:'adidasFG';line-height:1.5;margin-top:auto;}
 
 /* ---------- Preview pane ---------- */
 .preview-pane{flex:1;display:flex;flex-direction:column;background:#efefec;min-width:0;}
@@ -128,8 +130,7 @@ body{overflow:hidden;}
   color:#000;
 }
 .art-col{position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;}
-.art-eyebrow{margin-top:78px;font-family:'adidasFG';font-size:28px;letter-spacing:2px;text-transform:uppercase;color:#000;}
-.art-name{margin-top:26px;font-family:'Denton';font-weight:300;font-size:57px;letter-spacing:28px;text-transform:uppercase;color:#000;white-space:nowrap}
+.art-name{margin-top:132px;font-family:'Denton';font-weight:300;font-size:57px;letter-spacing:28px;text-transform:uppercase;color:#000;white-space:nowrap}
 .art-subtitle{margin-top:14px;font-family:'adidasFG';font-size:35px;letter-spacing:1px;text-transform:uppercase;color:#000;white-space:nowrap;}
 
 .art-media-row{margin-top:58px;display:flex;width:628px;height:419px;}
@@ -159,26 +160,27 @@ body{overflow:hidden;}
 .avatar-fullphoto:active{cursor:grabbing;}
 .avatar-scrim{position:absolute;inset:0;background:#000;opacity:.15;mix-blend-mode:multiply;display:none;pointer-events:none;}
 .avatar-logo{
-  width:182px;height:auto;position:absolute;left:50%;bottom:0;
+  width:158px;height:auto;position:absolute;left:50%;bottom:0;
   transform:translateX(-50%);z-index:3;pointer-events:none;
 }
 .avatar-logo polygon{fill:var(--grey);}
 .art-avatar-panel.has-photo .avatar-logo polygon{fill:var(--cream);}
 .art-avatar-panel.has-photo .avatar-circle{display:none;}
 
-.art-bottom{margin-top:64px;width:1780px;display:flex;align-items:flex-start;}
-.art-facts{width:1040px;}
+.art-bottom{margin-top:64px;width:1780px;display:flex;align-items:flex-start;position:relative;}
+.art-facts{width:945px;}
 .art-facts .lbl{font-family:'adidasFG';font-size:28px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px;}
 .facts-row{display:flex;gap:0;}
 .fact-card{width:315px;height:120px;display:flex;align-items:flex-start;gap:14px;padding-right:20px;}
 .fact-card .num{font-family:'adidasFG';font-size:22px;flex:none;padding-top:2px;}
 .fact-card .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;width:265px;max-height:130px;overflow:hidden;text-transform:uppercase;}
 
-.art-divider{width:1px;align-self:stretch;background:#000;margin:0 40px;opacity:.7;}
+.art-gap{width:61px;flex:none;align-self:stretch;}
+.art-divider{position:absolute;top:10px;bottom:10px;left:975.5px;width:1px;background:#000;opacity:.7;}
 
 .art-why{flex:1;}
 .art-why .lbl{font-family:'adidasFG';font-size:28px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px;}
-.art-why .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;width:629px;max-height:130px;overflow:hidden;text-transform:uppercase;}
+.art-why .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;width:100%;max-height:130px;overflow:hidden;text-transform:uppercase;}
 
 .art-watermark{position:absolute;bottom:18px;right:26px;font-family:'adidasFG';font-size:11px;letter-spacing:.5px;color:#00000055;}
 </style>
@@ -196,7 +198,7 @@ body{overflow:hidden;}
           <polygon points="349,86 558,447 759,447 499,1"/>
         </g>
       </svg>
-      <h1>NEW TEAM SIGNING</h1>
+      <h1>New Employee</h1>
     </div>
     <div class="sidebar-hr"></div>
 
@@ -211,10 +213,9 @@ body{overflow:hidden;}
           <div class="field"><label>First name</label><input type="text" id="firstName" placeholder="Name" maxlength="24"></div>
           <div class="field"><label>Last name</label><input type="text" id="lastName" placeholder="Last name" maxlength="24"></div>
         </div>
-        <div class="row3">
+        <div class="row2">
           <div class="field"><label>Team</label><input type="text" id="team" placeholder="HR" maxlength="20"></div>
           <div class="field"><label>Joined</label><input type="date" id="joined"></div>
-          <div class="field" style="max-width:90px;"><label>Year</label><input type="number" id="year" placeholder="2026" maxlength="4"></div>
         </div>
         <div class="field"><label>Position</label><input type="text" id="position" placeholder="Retail Recruitment Coordinator" maxlength="40"></div>
       </div>
@@ -242,7 +243,7 @@ body{overflow:hidden;}
           <button type="button" class="zbtn" id="zoomIn" aria-label="Zoom in">+</button>
           <button type="button" class="reset-btn" id="zoomReset">Reset fit</button>
         </div>
-        <div class="hint">Drag the photo to reposition it, use the zoom controls to resize. Everything stays in your browser — the photo is never uploaded anywhere.</div>
+        <div class="hint">Drag the photo to reposition it, use the zoom controls to resize. Everything stays in your browser. The photo is never uploaded anywhere.</div>
       </div>
     </div>
 
@@ -289,7 +290,7 @@ body{overflow:hidden;}
     <!-- Export -->
     <div class="export-section" id="exportSection">
       <div class="export-head" data-export-toggle>
-        <span>Export File</span><span class="section-toggle" id="exportChevron">⌄</span>
+        <span>Export File</span><svg class="export-chevron" id="exportChevron" width="13" height="8" viewBox="0 0 13 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1L6.5 6.5L12 1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="export-body">
         <div class="export-opt" data-export="png"><span class="fmt">PNG</span><span class="meta">Ultra-HD · 7680 × 4320</span></div>
@@ -311,7 +312,6 @@ body{overflow:hidden;}
       <div id="stageOuter" class="stage-shadow" style="overflow:hidden;">
         <div id="artboard">
           <div class="art-col">
-            <div class="art-eyebrow" id="outEyebrow">NEW TEAM SIGNING / 2026</div>
             <div class="art-name" id="outName">NAME LAST NAME</div>
             <div class="art-subtitle" id="outSubtitle">HR · RETAIL RECRUITMENT COORDINATOR · AUG 2, 2026</div>
 
@@ -342,11 +342,12 @@ body{overflow:hidden;}
                   <div class="fact-card"><div class="num">03</div><div class="txt" id="outFact3">Share something interesting about yourself.</div></div>
                 </div>
               </div>
-              <div class="art-divider"></div>
+              <div class="art-gap"></div>
               <div class="art-why">
                 <div class="lbl">Why Adidas?</div>
                 <div class="txt" id="outWhy">"Why did the employee choose to work at Adidas? A few words that summarize how they see the work experience at the company."</div>
               </div>
+              <div class="art-divider"></div>
             </div>
           </div>
         </div>
@@ -377,7 +378,7 @@ body{overflow:hidden;}
 
   /* ---------- Field bindings ---------- */
   var $ = function(id){ return document.getElementById(id); };
-  var fields = ['firstName','lastName','team','joined','year','position','fact1','fact2','fact3','whyAdidas'];
+  var fields = ['firstName','lastName','team','joined','position','fact1','fact2','fact3','whyAdidas'];
 
   function fmtDate(iso){
     if(!iso) return 'AUG 2, 2026';
@@ -433,12 +434,69 @@ body{overflow:hidden;}
     }
   }
 
+  /* Dynamically centers .art-divider between the ACTUAL RENDERED TEXT of the
+     last fact and the Why-Adidas text (not just their container boxes), since
+     left-aligned wrapped text rarely fills its box's full width. */
+  function centerDivider(){
+    var divider = document.querySelector('.art-divider');
+    var bottomEl = document.querySelector('.art-bottom');
+    var factsEl = document.querySelector('.art-facts');
+    var whyEl = document.querySelector('.art-why');
+    var fact3El = $('outFact3');
+    var whyTextEl = $('outWhy');
+    if(!divider || !bottomEl || !factsEl || !whyEl || !fact3El || !whyTextEl) return;
+
+    var aRect = artboard.getBoundingClientRect();
+    var scale = aRect.width / 1920;
+    if(!scale || !isFinite(scale)) return;
+
+    function toNative(px){ return (px - aRect.left) / scale; }
+
+    function textEdges(el){
+      var range = document.createRange();
+      range.selectNodeContents(el);
+      var rects = range.getClientRects();
+      var minLeft = Infinity, maxRight = -Infinity;
+      for(var i=0;i<rects.length;i++){
+        if(rects[i].left < minLeft) minLeft = rects[i].left;
+        if(rects[i].right > maxRight) maxRight = rects[i].right;
+      }
+      if(maxRight === -Infinity){
+        var r = el.getBoundingClientRect();
+        minLeft = r.left; maxRight = r.right;
+      }
+      return { left: toNative(minLeft), right: toNative(maxRight) };
+    }
+
+    var lastFactTextRight = textEdges(fact3El).right;
+    var whyTextLeft = textEdges(whyTextEl).left;
+
+    var mid = (lastFactTextRight + whyTextLeft) / 2;
+
+    // Safety clamp against the actual text edges themselves (not the
+    // container boxes, which carry their own built-in slack and would pull
+    // the divider away from true visual centering). This only engages when
+    // the two text blocks nearly touch, to keep the divider from sitting
+    // on top of either one.
+    var buffer = 8;
+    var minPos = lastFactTextRight + buffer;
+    var maxPos = whyTextLeft - buffer;
+    if(minPos > maxPos){ var mp = (minPos+maxPos)/2; minPos = maxPos = mp; }
+    mid = Math.max(minPos, Math.min(maxPos, mid));
+
+    // Loose outer safety net using the container boxes, in case content is
+    // empty/degenerate and the text-based bounds above collapse oddly.
+    var outerMin = toNative(factsEl.getBoundingClientRect().left) + 8;
+    var outerMax = toNative(whyEl.getBoundingClientRect().right) - 8;
+    mid = Math.max(outerMin, Math.min(outerMax, mid));
+
+    var bottomLeftNative = toNative(bottomEl.getBoundingClientRect().left);
+    divider.style.left = (mid - bottomLeftNative) + 'px';
+  }
+
   function render(){
     var v = {};
     fields.forEach(function(f){ v[f] = $(f).value.trim(); });
-
-    var year = v.year || '2026';
-    $('outEyebrow').textContent = 'NEW TEAM SIGNING / ' + year;
 
     var first = v.firstName || 'Name';
     var last = v.lastName || 'Last Name';
@@ -478,6 +536,7 @@ body{overflow:hidden;}
         fitText($(id), 130, 35, 1.14, 15);
       });
       fitText($('outWhy'), 130, 35, 1.14, 15);
+      centerDivider();
     });
   }
 
@@ -512,6 +571,7 @@ body{overflow:hidden;}
     artboard.style.transform = 'scale('+scale+')';
     stageOuter.style.width = (1920*scale)+'px';
     stageOuter.style.height = (1080*scale)+'px';
+    centerDivider();
   }
   window.addEventListener('resize', fitStage);
   fitStage();
