@@ -77,12 +77,24 @@ body{overflow:hidden;}
 .counter{font-size:13px;color:#777;text-align:right;margin-top:4px;font-family:'adidasFG';}
 .counter.over{color:#c0392b;}
 
+.field-label-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+.field-label-row label{margin-bottom:0;}
+.fact-remove-btn{background:none;border:none;padding:0;font-family:'adidasFG';font-size:12px;letter-spacing:.3px;text-transform:uppercase;color:#999;cursor:pointer;text-decoration:underline;}
+.fact-remove-btn:hover{color:#c0392b;}
+.fact-remove-btn:disabled{color:#ccc;cursor:default;text-decoration:none;}
+.fact-restore-btn{display:none;width:100%;border:1px dashed #999;background:#fff;color:#666;font-family:'adidasFG';font-size:13px;text-transform:uppercase;letter-spacing:.3px;padding:11px 13px;cursor:pointer;}
+.fact-restore-btn:hover{border-color:#000;color:#000;}
+.field.fact-removed .field-label-row,.field.fact-removed textarea,.field.fact-removed .counter{display:none;}
+.field.fact-removed .fact-restore-btn{display:block;}
+
 .dropzone{
   border:1.5px dashed #999;padding:26px 14px;text-align:center;cursor:pointer;
   font-size:15px;color:#555;font-family:'adidasFG';background:#fff;
 }
 .dropzone strong{display:block;font-size:16.5px;color:#000;margin-bottom:4px;font-weight:400;text-transform:uppercase;letter-spacing:.3px;}
 .dropzone input{display:none;}
+.photo-undo-btn{display:none;width:100%;border:1px dashed #999;background:#fff;color:#666;font-family:'adidasFG';font-size:13px;text-transform:uppercase;letter-spacing:.3px;padding:11px 13px;cursor:pointer;margin-top:10px;}
+.photo-undo-btn:hover{border-color:#000;color:#000;}
 .photo-actions{display:flex;gap:10px;margin-top:10px;}
 .photo-actions button{flex:1;padding:9px;font-size:14.5px;text-transform:uppercase;letter-spacing:.4px;background:#fff;border:1px solid #000;cursor:pointer;font-family:'adidasFG';}
 .photo-actions button:hover{background:#000;color:#fff;}
@@ -173,7 +185,7 @@ body{overflow:hidden;}
 .facts-row{display:flex;gap:0;}
 .fact-card{width:315px;height:120px;display:flex;align-items:flex-start;gap:14px;padding-right:20px;}
 .fact-card .num{font-family:'adidasFG';font-size:22px;flex:none;padding-top:2px;}
-.fact-card .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;width:265px;max-height:130px;overflow:hidden;text-transform:uppercase;}
+.fact-card .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;flex:1;min-width:0;max-height:130px;overflow:hidden;text-transform:uppercase;}
 
 .art-gap{width:61px;flex:none;align-self:stretch;}
 .art-divider{position:absolute;top:10px;bottom:10px;left:975.5px;width:1px;background:#000;opacity:.7;}
@@ -233,6 +245,7 @@ body{overflow:hidden;}
           JPG, PNG or WebP · cropped automatically
           <input type="file" id="photoInput" accept="image/png,image/jpeg,image/webp">
         </div>
+        <button type="button" id="photoUndoRemove" class="photo-undo-btn" style="display:none;">↺ Undo remove photo</button>
         <div class="photo-actions" id="photoActions" style="display:none;">
           <button type="button" id="photoReplace">Replace</button>
           <button type="button" id="photoRemove">Remove</button>
@@ -254,20 +267,32 @@ body{overflow:hidden;}
         <div class="section-toggle">+</div>
       </div>
       <div class="section-body">
-        <div class="field">
-          <label>Fact 1</label>
+        <div class="field" data-fact-field="fact1">
+          <div class="field-label-row">
+            <label>Fact 1</label>
+            <button type="button" class="fact-remove-btn" data-fact="fact1">Remove</button>
+          </div>
           <textarea id="fact1" maxlength="60" placeholder="Share something interesting about yourself."></textarea>
           <div class="counter" data-counter-for="fact1">0 / 60</div>
+          <button type="button" class="fact-restore-btn" data-fact="fact1">+ Add this fact back</button>
         </div>
-        <div class="field">
-          <label>Fact 2</label>
+        <div class="field" data-fact-field="fact2">
+          <div class="field-label-row">
+            <label>Fact 2</label>
+            <button type="button" class="fact-remove-btn" data-fact="fact2">Remove</button>
+          </div>
           <textarea id="fact2" maxlength="60" placeholder="Share something interesting about yourself."></textarea>
           <div class="counter" data-counter-for="fact2">0 / 60</div>
+          <button type="button" class="fact-restore-btn" data-fact="fact2">+ Add this fact back</button>
         </div>
-        <div class="field">
-          <label>Fact 3</label>
+        <div class="field" data-fact-field="fact3">
+          <div class="field-label-row">
+            <label>Fact 3</label>
+            <button type="button" class="fact-remove-btn" data-fact="fact3">Remove</button>
+          </div>
           <textarea id="fact3" maxlength="60" placeholder="Share something interesting about yourself."></textarea>
           <div class="counter" data-counter-for="fact3">0 / 60</div>
+          <button type="button" class="fact-restore-btn" data-fact="fact3">+ Add this fact back</button>
         </div>
       </div>
     </div>
@@ -335,7 +360,7 @@ body{overflow:hidden;}
 
             <div class="art-bottom">
               <div class="art-facts">
-                <div class="lbl">3 Facts about you</div>
+                <div class="lbl" id="outFactsLbl">3 Facts about you</div>
                 <div class="facts-row">
                   <div class="fact-card"><div class="num">01</div><div class="txt" id="outFact1">Share something interesting about yourself.</div></div>
                   <div class="fact-card"><div class="num">02</div><div class="txt" id="outFact2">Share something interesting about yourself.</div></div>
@@ -379,6 +404,42 @@ body{overflow:hidden;}
   /* ---------- Field bindings ---------- */
   var $ = function(id){ return document.getElementById(id); };
   var fields = ['firstName','lastName','team','joined','position','fact1','fact2','fact3','whyAdidas'];
+  var FACT_IDS = ['fact1','fact2','fact3'];
+  var factRemoved = {fact1:false, fact2:false, fact3:false};
+
+  function activeFactIds(){
+    var active = FACT_IDS.filter(function(f){ return !factRemoved[f]; });
+    return active.length ? active : ['fact1'];
+  }
+
+  function updateFactRemoveButtons(){
+    var activeCount = activeFactIds().length;
+    document.querySelectorAll('.fact-remove-btn').forEach(function(btn){
+      var f = btn.getAttribute('data-fact');
+      btn.disabled = (activeCount <= 1 && !factRemoved[f]);
+    });
+  }
+
+  document.querySelectorAll('.fact-remove-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var f = btn.getAttribute('data-fact');
+      if(activeFactIds().length <= 1 && !factRemoved[f]) return;
+      factRemoved[f] = true;
+      var fieldEl = document.querySelector('.field[data-fact-field="'+f+'"]');
+      if(fieldEl) fieldEl.classList.add('fact-removed');
+      render();
+    });
+  });
+  document.querySelectorAll('.fact-restore-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var f = btn.getAttribute('data-fact');
+      factRemoved[f] = false;
+      var fieldEl = document.querySelector('.field[data-fact-field="'+f+'"]');
+      if(fieldEl) fieldEl.classList.remove('fact-removed');
+      autoGrowTextarea($(f));
+      render();
+    });
+  });
 
   function fmtDate(iso){
     if(!iso) return 'AUG 2, 2026';
@@ -442,7 +503,11 @@ body{overflow:hidden;}
     var bottomEl = document.querySelector('.art-bottom');
     var factsEl = document.querySelector('.art-facts');
     var whyEl = document.querySelector('.art-why');
-    var fact3El = $('outFact3');
+    var visibleCards = Array.prototype.filter.call(document.querySelectorAll('.facts-row .fact-card'), function(c){
+      return c.style.display !== 'none';
+    });
+    var lastCard = visibleCards[visibleCards.length - 1];
+    var fact3El = lastCard ? lastCard.querySelector('.txt') : null;
     var whyTextEl = $('outWhy');
     if(!divider || !bottomEl || !factsEl || !whyEl || !fact3El || !whyTextEl) return;
 
@@ -509,10 +574,27 @@ body{overflow:hidden;}
     var dateStr = fmtDate(v.joined);
     $('outSubtitle').textContent = team + ' · ' + position + ' · ' + dateStr;
 
-    ['fact1','fact2','fact3'].forEach(function(f, i){
-      var el = $('outFact' + (i+1));
-      el.textContent = v[f] || 'Share something interesting about yourself.';
+    var activeFacts = activeFactIds();
+    var factCards = document.querySelectorAll('.facts-row .fact-card');
+    factCards.forEach(function(card, i){
+      if(i < activeFacts.length){
+        var f = activeFacts[i];
+        var txtEl = card.querySelector('.txt');
+        txtEl.id = 'outFact' + (i+1);
+        txtEl.textContent = v[f] || 'Share something interesting about yourself.';
+        var numEl = card.querySelector('.num');
+        numEl.textContent = (i+1 < 10 ? '0' : '') + (i+1);
+        card.style.display = '';
+        card.style.width = (945/activeFacts.length) + 'px';
+      } else {
+        card.style.display = 'none';
+      }
     });
+    updateFactRemoveButtons();
+    var lblEl = $('outFactsLbl');
+    if(lblEl){
+      lblEl.textContent = activeFacts.length + (activeFacts.length === 1 ? ' Fact about you' : ' Facts about you');
+    }
 
     var why = v.whyAdidas || '"Why did the employee choose to work at Adidas? A few words that summarize how they see the work experience at the company."';
     if(v.whyAdidas){ why = '“' + v.whyAdidas + '”'; }
@@ -532,9 +614,9 @@ body{overflow:hidden;}
       fitNameLine($('outName'), 1780, 57, 28, 24);
       fitNameLine($('outSubtitle'), 1780, 35, 1, 16);
       justifyToWidth($('outPhotoName'), 284, 50, 22, 24);
-      ['outFact1','outFact2','outFact3'].forEach(function(id){
-        fitText($(id), 130, 35, 1.14, 15);
-      });
+      for(var fi = 0; fi < activeFacts.length; fi++){
+        fitText($('outFact' + (fi+1)), 130, 35, 1.14, 15);
+      }
       fitText($('outWhy'), 130, 35, 1.14, 15);
       centerDivider();
     });
@@ -586,6 +668,7 @@ body{overflow:hidden;}
   var avatarFullphoto = $('avatarFullphoto');
   var avatarScrim = $('avatarScrim');
   var uploadedPhotoDataUrl = null;
+  var removedPhotoBackup = null;
 
   var PANEL_W = 314, PANEL_H = 419;
   var photoState = { natW:0, natH:0, scale:1, offX:0, offY:0 };
@@ -635,6 +718,13 @@ body{overflow:hidden;}
   dropzone.addEventListener('click', function(){ photoInput.click(); });
   $('photoReplace').addEventListener('click', function(){ photoInput.click(); });
   $('photoRemove').addEventListener('click', function(){
+    if(uploadedPhotoDataUrl){
+      removedPhotoBackup = {
+        dataUrl: uploadedPhotoDataUrl,
+        state: { natW: photoState.natW, natH: photoState.natH, scale: photoState.scale, offX: photoState.offX, offY: photoState.offY }
+      };
+      $('photoUndoRemove').style.display = 'block';
+    }
     uploadedPhotoDataUrl = null;
     photoState = { natW:0, natH:0, scale:1, offX:0, offY:0 };
     avatarFullphoto.style.backgroundImage = '';
@@ -647,9 +737,33 @@ body{overflow:hidden;}
     photoActions.style.display = 'none';
     photoZoom.style.display = 'none';
   });
+  $('photoUndoRemove').addEventListener('click', function(){
+    if(!removedPhotoBackup) return;
+    uploadedPhotoDataUrl = removedPhotoBackup.dataUrl;
+    photoState = {
+      natW: removedPhotoBackup.state.natW,
+      natH: removedPhotoBackup.state.natH,
+      scale: removedPhotoBackup.state.scale,
+      offX: removedPhotoBackup.state.offX,
+      offY: removedPhotoBackup.state.offY
+    };
+    avatarFullphoto.style.backgroundImage = "url('"+uploadedPhotoDataUrl+"')";
+    avatarFullphoto.style.display = 'block';
+    avatarScrim.style.display = 'block';
+    avatarPanel.classList.add('has-photo');
+    dropzone.style.display = 'none';
+    photoActions.style.display = 'flex';
+    photoZoom.style.display = 'flex';
+    zoomSlider.value = String(photoState.scale);
+    applyPhotoTransform();
+    $('photoUndoRemove').style.display = 'none';
+    removedPhotoBackup = null;
+  });
   photoInput.addEventListener('change', function(e){
     var file = e.target.files && e.target.files[0];
     if(!file) return;
+    removedPhotoBackup = null;
+    $('photoUndoRemove').style.display = 'none';
     var reader = new FileReader();
     reader.onload = function(ev){
       uploadedPhotoDataUrl = ev.target.result;
