@@ -185,14 +185,14 @@ body{overflow:hidden;}
 .facts-row{display:flex;gap:0;}
 .fact-card{width:315px;height:120px;display:flex;align-items:flex-start;gap:14px;padding-right:20px;}
 .fact-card .num{font-family:'adidasFG';font-size:22px;flex:none;padding-top:2px;}
-.fact-card .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;flex:1;min-width:0;max-height:130px;overflow:hidden;text-transform:uppercase;}
+.fact-card .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;flex:1;min-width:0;max-height:130px;overflow:hidden;text-transform:uppercase;overflow-wrap:break-word;word-break:break-word;}
 
 .art-gap{width:61px;flex:none;align-self:stretch;}
 .art-divider{position:absolute;top:10px;bottom:10px;left:975.5px;width:1px;background:#000;opacity:.7;}
 
 .art-why{flex:1;}
 .art-why .lbl{font-family:'adidasFG';font-size:28px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px;}
-.art-why .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;width:100%;max-height:130px;overflow:hidden;text-transform:uppercase;}
+.art-why .txt{font-family:'adidasFG';font-size:35px;line-height:1.14;width:100%;max-height:130px;overflow:hidden;text-transform:uppercase;overflow-wrap:break-word;word-break:break-word;}
 
 .art-watermark{position:absolute;bottom:18px;right:26px;font-family:'adidasFG';font-size:11px;letter-spacing:.5px;color:#00000055;}
 </style>
@@ -272,8 +272,8 @@ body{overflow:hidden;}
             <label>Fact 1</label>
             <button type="button" class="fact-remove-btn" data-fact="fact1">Remove</button>
           </div>
-          <textarea id="fact1" maxlength="60" placeholder="Share something interesting about yourself."></textarea>
-          <div class="counter" data-counter-for="fact1">0 / 60</div>
+          <textarea id="fact1" maxlength="100" placeholder="Share something interesting about yourself."></textarea>
+          <div class="counter" data-counter-for="fact1">0 / 100</div>
           <button type="button" class="fact-restore-btn" data-fact="fact1">+ Add this fact back</button>
         </div>
         <div class="field" data-fact-field="fact2">
@@ -281,8 +281,8 @@ body{overflow:hidden;}
             <label>Fact 2</label>
             <button type="button" class="fact-remove-btn" data-fact="fact2">Remove</button>
           </div>
-          <textarea id="fact2" maxlength="60" placeholder="Share something interesting about yourself."></textarea>
-          <div class="counter" data-counter-for="fact2">0 / 60</div>
+          <textarea id="fact2" maxlength="100" placeholder="Share something interesting about yourself."></textarea>
+          <div class="counter" data-counter-for="fact2">0 / 100</div>
           <button type="button" class="fact-restore-btn" data-fact="fact2">+ Add this fact back</button>
         </div>
         <div class="field" data-fact-field="fact3">
@@ -290,8 +290,8 @@ body{overflow:hidden;}
             <label>Fact 3</label>
             <button type="button" class="fact-remove-btn" data-fact="fact3">Remove</button>
           </div>
-          <textarea id="fact3" maxlength="60" placeholder="Share something interesting about yourself."></textarea>
-          <div class="counter" data-counter-for="fact3">0 / 60</div>
+          <textarea id="fact3" maxlength="100" placeholder="Share something interesting about yourself."></textarea>
+          <div class="counter" data-counter-for="fact3">0 / 100</div>
           <button type="button" class="fact-restore-btn" data-fact="fact3">+ Add this fact back</button>
         </div>
       </div>
@@ -458,6 +458,7 @@ body{overflow:hidden;}
       el.style.fontSize = (cur-1)+'px';
       tries++;
     }
+    return parseFloat(el.style.fontSize);
   }
 
   function fitNameLine(el, maxWidthPx, baseFontSize, baseLetterSpacing, minFontSize){
@@ -614,8 +615,15 @@ body{overflow:hidden;}
       fitNameLine($('outName'), 1780, 57, 28, 24);
       fitNameLine($('outSubtitle'), 1780, 35, 1, 16);
       justifyToWidth($('outPhotoName'), 284, 50, 22, 24);
+      var factFontSizes = [];
       for(var fi = 0; fi < activeFacts.length; fi++){
-        fitText($('outFact' + (fi+1)), 130, 35, 1.14, 15);
+        factFontSizes.push(fitText($('outFact' + (fi+1)), 130, 35, 1.14, 15));
+      }
+      if(factFontSizes.length){
+        var uniformFactSize = Math.min.apply(null, factFontSizes);
+        for(var fj = 0; fj < activeFacts.length; fj++){
+          $('outFact' + (fj+1)).style.fontSize = uniformFactSize + 'px';
+        }
       }
       fitText($('outWhy'), 130, 35, 1.14, 15);
       centerDivider();
